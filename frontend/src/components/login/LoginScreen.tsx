@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { AlertCircle, ArrowRight, Eye, EyeOff, Lock, Mail, User } from 'lucide-react';
-import { AdGlobalLogo } from '@/components/AdGlobalLogo';
+import { AlertCircle, ArrowRight, Eye, EyeOff, Lock, User } from 'lucide-react';
+import { BrandLogo } from '@/components/BrandLogo';
 import { ADMIN_CONFIG } from '@/config/site';
 import type { LoginCredentials, LoginResult } from '@/hooks/useAuth';
 
@@ -10,7 +10,6 @@ interface LoginScreenProps {
 }
 
 export function LoginScreen({ onAuthenticate }: LoginScreenProps) {
-  const [email, setEmail] = useState('');
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +22,7 @@ export function LoginScreen({ onAuthenticate }: LoginScreenProps) {
     setErrorMessage('');
     setIsLoading(true);
 
-    const result = await onAuthenticate({ email, usuario, password, remember });
+    const result = await onAuthenticate({ usuario, password, remember });
 
     setIsLoading(false);
     if (!result.ok) {
@@ -37,7 +36,7 @@ export function LoginScreen({ onAuthenticate }: LoginScreenProps) {
       <header className="border-b border-slate-200 bg-white px-4 pb-3.5 pt-[calc(.875rem+env(safe-area-inset-top,0px))] shadow-xs sm:px-8">
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <AdGlobalLogo variant="brand" height={28} />
+            <BrandLogo variant="brand" height={28} />
             <span className="hidden rounded-full border border-highlight/65 bg-brand-soft px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-brand sm:inline">
               Inventario
             </span>
@@ -68,34 +67,6 @@ export function LoginScreen({ onAuthenticate }: LoginScreenProps) {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <p className="rounded-xl bg-slate-50 border border-slate-200 px-3 py-2 text-[11px] leading-relaxed text-slate-500">
-              Ingresa el correo y el usuario tal como quedaron registrados en tu cuenta. Ambos
-              campos deben corresponder a la misma persona.
-            </p>
-            <div>
-              <label
-                htmlFor="login-email"
-                className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
-              >
-                Email Corporativo
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                  <Mail className="w-4 h-4" />
-                </div>
-                <input
-                  id="login-email"
-                  type="email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  required
-                  autoComplete="username"
-                  placeholder="nombre@gmail.com"
-                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all font-mono"
-                />
-              </div>
-            </div>
-
             <div>
               <label
                 htmlFor="login-user"
@@ -114,7 +85,7 @@ export function LoginScreen({ onAuthenticate }: LoginScreenProps) {
                   onChange={(event) => setUsuario(event.target.value)}
                   required
                   minLength={2}
-                  autoComplete="nickname"
+                  autoComplete="username"
                   placeholder="Tu usuario"
                   className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all font-mono"
                 />

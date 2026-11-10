@@ -37,7 +37,7 @@ function clearAuthTokens() {
 }
 
 function dispatchUnauthorized() {
-  window.dispatchEvent(new Event('adglobal:unauthorized'));
+  window.dispatchEvent(new Event('inventory:unauthorized'));
 }
 
 /**

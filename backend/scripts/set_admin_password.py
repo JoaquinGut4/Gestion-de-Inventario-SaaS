@@ -4,8 +4,8 @@ La contraseña se guarda siempre como hash PBKDF2-SHA256 y se invalidan las
 sesiones abiertas de la cuenta.
 
 Ejemplos:
-    python -m backend.scripts.set_admin_password --usuario SamuelA01
-    python -m backend.scripts.set_admin_password --email samuel.aguilar_01@adglobalperu.com --password "NuevaClave2026"
+    python -m backend.scripts.set_admin_password --usuario administrador
+    python -m backend.scripts.set_admin_password --email admin@inventario.com --password "NuevaClave2026"
 """
 from __future__ import annotations
 

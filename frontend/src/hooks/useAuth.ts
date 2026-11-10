@@ -5,7 +5,6 @@ import { loginErrorMessage } from '@/lib/apiErrors';
 import type { AdminSection, UsuarioRol } from '@/types';
 
 export interface LoginCredentials {
-  email: string;
   usuario: string;
   password: string;
   remember: boolean;
@@ -92,8 +91,8 @@ export function useAuth() {
 
   // Cualquier 401 de la API cierra la sesión local.
   useEffect(() => {
-    window.addEventListener('adglobal:unauthorized', logout);
-    return () => window.removeEventListener('adglobal:unauthorized', logout);
+    window.addEventListener('inventory:unauthorized', logout);
+    return () => window.removeEventListener('inventory:unauthorized', logout);
   }, [logout]);
 
   // Valida el token guardado contra el servidor y refresca módulos y rol.
@@ -105,13 +104,13 @@ export function useAuth() {
         setIsAuthenticated(true);
       })
       .catch(() => {
-        /* Un 401 dispara adglobal:unauthorized; un fallo de red conserva la sesión cacheada. */
+        /* Un 401 dispara inventory:unauthorized; un fallo de red conserva la sesión cacheada. */
       });
   }, []);
 
   const authenticate = useCallback(async (credentials: LoginCredentials): Promise<LoginResult> => {
-    const { email, usuario, password, remember } = credentials;
-    if (!email.trim() || !usuario.trim() || !password) {
+    const { usuario, password, remember } = credentials;
+    if (!usuario.trim() || !password) {
       return { ok: false, error: 'Todos los campos son obligatorios.' };
     }
     if (usuario.trim().length < 2) {
@@ -129,7 +128,7 @@ export function useAuth() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ email: email.trim(), usuario: usuario.trim(), password }),
+        body: JSON.stringify({ usuario: usuario.trim(), password }),
       });
 
       let payload: unknown = null;

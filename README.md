@@ -1,6 +1,6 @@
 # Gestión de Inventario SAAS
 
-Copia independiente del panel administrativo de **AD GLOBAL**, recortada a los módulos de inventario:
+Sistema administrativo independiente para la gestión de inventario, organizado en los siguientes módulos:
 
 - **Login** (autenticación con JWT + cookies HttpOnly)
 - **Dashboard** (indicadores, distribución y actividad reciente)
@@ -192,7 +192,7 @@ Los módulos se pueden ajustar individualmente desde **Configuración**.
 
 - **Nombre del panel:** `frontend/.env` → `VITE_ADMIN_NAME`.
 - **Colores y tipografía:** `frontend/src/index.css` (bloque `@theme`).
-- **Logo:** reemplaza `frontend/src/assets/logo/adglobal-logo.png`.
+- **Identidad visual:** edita `frontend/src/components/BrandLogo.tsx`.
 - **Módulos del menú:** `frontend/src/config/navigation.ts`.
 - **Categorías base:** `backend/app/seed_data.py`.
 - **Estados base:** `backend/app/seed_data.py` (`INVENTORY_STATES`).

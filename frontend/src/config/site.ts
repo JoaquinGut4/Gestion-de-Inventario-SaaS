@@ -5,7 +5,7 @@
  */
 
 export const ADMIN_CONFIG = {
-  name: import.meta.env.VITE_ADMIN_NAME ?? 'AD GLOBAL · Inventario',
+  name: import.meta.env.VITE_ADMIN_NAME ?? 'Gestión de Inventario',
   /** URL base versionada del backend. */
   apiUrl: import.meta.env.VITE_API_URL ?? '',
 } as const;

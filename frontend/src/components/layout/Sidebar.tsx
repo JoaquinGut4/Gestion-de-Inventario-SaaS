@@ -1,5 +1,5 @@
 import { LogOut, PanelLeftClose, PanelLeftOpen, ShieldCheck, X } from 'lucide-react';
-import { AdGlobalLogo } from '@/components/AdGlobalLogo';
+import { BrandLogo } from '@/components/BrandLogo';
 import { NAV_ITEMS } from '@/config/navigation';
 import type { AuthSession } from '@/hooks/useAuth';
 import type { AdminSection } from '@/types';
@@ -58,7 +58,7 @@ export function Sidebar({
             isCollapsed ? 'px-5 lg:justify-center lg:px-3' : 'px-5'
           }`}
         >
-          <AdGlobalLogo
+          <BrandLogo
             variant="white"
             height={30}
             className={isCollapsed ? 'lg:hidden' : ''}

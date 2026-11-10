@@ -2,7 +2,7 @@
 import logging
 
 from fastapi import APIRouter, Cookie, Depends, HTTPException, Request, Response, status
-from sqlalchemy import func, or_, select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from backend.app.api.dependencies import current_user
@@ -81,28 +81,25 @@ def enforce_login_rate_limit(account_key: str, ip_key: str | None) -> None:
 
 @router.post("/login", response_model=TokenResponse)
 def login(payload: LoginRequest, request: Request, response: Response, db: Session = Depends(get_db)) -> TokenResponse:
-    email = payload.email.lower()
     username = payload.usuario.lower()
-    account_key = f"{email}|{username}"
+    account_key = username
     ip_key = login_client_ip(request)
     enforce_login_rate_limit(account_key, ip_key)
 
     user = db.scalar(
         select(AdminUser).where(
-            func.lower(AdminUser.email) == email,
             func.lower(AdminUser.username) == username,
         )
     )
     if user is None:
         # Keep the work comparable to a real check so the response time does not
-        # reveal whether the email+username pair exists.
+        # reveal whether the username exists.
         verify_dummy_password(payload.password)
         account_login_limiter.record(account_key)
         if ip_key:
             ip_login_limiter.record(ip_key)
         logger.warning(
-            "Login rechazado: no existe una cuenta con email=%r y usuario=%r",
-            email,
+            "Login rechazado: no existe una cuenta con usuario=%r",
             username,
         )
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Credenciales invÃ¡lidas")
@@ -113,8 +110,7 @@ def login(payload: LoginRequest, request: Request, response: Response, db: Sessi
         if ip_key:
             ip_login_limiter.record(ip_key)
         logger.warning(
-            "Login rechazado: contraseÃ±a incorrecta para email=%r usuario=%r",
-            email,
+            "Login rechazado: contraseÃ±a incorrecta para usuario=%r",
             username,
         )
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Credenciales invÃ¡lidas")

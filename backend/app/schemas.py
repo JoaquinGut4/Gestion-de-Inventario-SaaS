@@ -32,7 +32,6 @@ class Schema(BaseModel):
 
 
 class LoginRequest(Schema):
-    email: EmailStr
     usuario: str = Field(min_length=2, max_length=80)
     password: str = Field(min_length=8, max_length=128)
 

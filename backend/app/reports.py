@@ -153,7 +153,7 @@ def table_pdf(
         return y - HEADER_HEIGHT
 
     def finish_page(y: float) -> None:
-        commands.append(_text(MARGIN, 20, f"AD GLOBAL · {datetime.now():%d/%m/%Y %H:%M}", 6.5, False, MUTED))
+        commands.append(_text(MARGIN, 20, f"Gestión de Inventario · {datetime.now():%d/%m/%Y %H:%M}", 6.5, False, MUTED))
         commands.append(_text(PAGE_WIDTH - MARGIN - 55, 20, f"Página {page_number}", 6.5, False, MUTED))
         pages.append("\n".join(commands))
 
